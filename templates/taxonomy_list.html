@@ -1,0 +1,8 @@
+{% extends "index.html" %}
+
+{% block content %}
+  {% for term in terms %}
+    <a href="{{ term.permalink }}">{{ term.name }}</a>
+  {% endfor %}
+{% endblock content %}
+

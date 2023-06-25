@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+      <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+
+      <!-- CSS -->
+      <link rel="stylesheet" href="{{ get_url(path="print.css", trailing_slash=false) }}" media="print">
+      <link rel="stylesheet" href="{{ get_url(path="poole.css", trailing_slash=false) }}">
+      <link rel="stylesheet" href="{{ get_url(path="hyde.css", trailing_slash=false) }}">
+      <link rel="shortcut icon" href="/favicon.svg" media="image/svg+xml">
+
+      {% block extra_head %}
+      {% endblock extra_head %}
+    </head>
+
+    <body class="theme-base-08">
+        {% block sidebar %}
+            <div class="sidebar">
+                <div class="container">
+                    <div class="sidebar-about">
+                        {% block sidebar_about %}
+                            <a href="{{ config.base_url }}"><h1>{{ config.title }}</h1></a>
+                            {% if config.description %}
+                            <p class="lead">{{config.description}}</p>
+                            {% endif %}
+                        {% endblock sidebar_about %}
+                    </div>
+                    Tags
+                    <ul class="sidebar-nav">
+                      {% block sidebar_nav_tags %}
+                        {% set tags = get_taxonomy(kind="tags") %}
+                        {% for term in tags.items %}
+                          <li class="sidebar-nav-item"><a href="{{ term.permalink }}">{{ term.name }}</a></li>
+                        {% endfor %}
+                      {% endblock sidebar_nav_tags %}
+                    </ul>
+                    Links
+                    <ul class="sidebar-nav">
+                      {% block sidebar_nav_links %}
+                        {% for link in config.extra.links %}
+                        <li class="sidebar-nav-item"><a href="{{link.url}}">{{link.name}}&#x1F855;</a></li>
+                        {% endfor %}
+                      {% endblock sidebar_nav_links %}
+                    </ul>
+                </div>
+            </div>
+        {% endblock sidebar %}
+
+        <div class="content container">
+            {% block content %}
+                <div class="posts">
+                    {% for page in section.pages | reverse %}
+                      <div class="post">
+                        <h1 class="post-title">
+                          <a href="{{ page.permalink }}">
+                            {{ page.title | safe }}
+                          </a>
+                        </h1>
+                        <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</span>
+                      </div>
+                    {% endfor %}
+                </div>
+            {% endblock content %}
+        </div>
+
+    </body>
+
+</html>
