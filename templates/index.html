@@ -22,17 +22,19 @@
 
     <body class="theme-base-08">
         {% block sidebar %}
-            <div class="sidebar">
-                <div class="container">
-                    <div class="sidebar-about">
-                        {% block sidebar_about %}
-                            <a href="{{ config.base_url }}"><h1>{{ config.title }}</h1></a>
-                            {% if config.description %}
-                            <p class="lead">{{config.description}}</p>
-                            {% endif %}
-                        {% endblock sidebar_about %}
-                    </div>
-                    Tags
+            <nav class="sidebar">
+              <div class="container">
+                  <input id="sidebar-show-nav" value="&#x2630;" type="button" onclick="document.getElementById('sidebar-nav-container').classList.toggle('show')" />
+                  <div class="sidebar-about">
+                      {% block sidebar_about %}
+                          <a href="{{ config.base_url }}"><h1>{{ config.title }}</h1></a>
+                          {% if config.description %}
+                          <p class="lead">{{config.description}}</p>
+                          {% endif %}
+                      {% endblock sidebar_about %}
+                  </div>
+                  <div id="sidebar-nav-container">
+                    <span class="sidebar-nav-title">Tags</span>
                     <ul class="sidebar-nav">
                       {% block sidebar_nav_tags %}
                         {% set tags = get_taxonomy(kind="tags") %}
@@ -41,7 +43,7 @@
                         {% endfor %}
                       {% endblock sidebar_nav_tags %}
                     </ul>
-                    Links
+                    <span class="sidebar-nav-title">Links</span>
                     <ul class="sidebar-nav">
                       {% block sidebar_nav_links %}
                         {% for link in config.extra.links %}
@@ -49,8 +51,9 @@
                         {% endfor %}
                       {% endblock sidebar_nav_links %}
                     </ul>
-                </div>
-            </div>
+                  </div>
+              </div>
+          </nav>
         {% endblock sidebar %}
 
         <div class="content container">

@@ -56,8 +56,8 @@ html {
  */
 
 .sidebar {
-  text-align: center;
-  padding: 2rem 1rem;
+  text-align: left;
+  padding: 0.4rem 0.2rem;
   color: rgba(255, 255, 255, .5);
   background-color: #202020;
 }
@@ -69,7 +69,7 @@ html {
     left: 0;
     bottom: 0;
     width: 18rem;
-    text-align: left;
+    padding: 2rem 1rem;
   }
 }
 
@@ -83,10 +83,37 @@ html {
   color: #fff;
   margin-top: 0;
   font-family: "Abril Fatface", serif;
-  font-size: 3.25rem;
+  font-size: 2.75rem;
 }
 
 /* Sidebar nav */
+#sidebar-show-nav {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  float: right;
+  font-size: 2.75rem;
+  cursor: pointer;
+}
+
+#sidebar-nav-container:not(.show) {
+  display: none;
+}
+
+@media (min-width: 48em) {
+  #sidebar-show-nav {
+    display: none;
+  }
+
+  #sidebar-nav-container:not(.never) {
+    display: block;
+  }
+}
+
 .sidebar-nav {
   padding-left: 0;
   list-style: none;
@@ -106,36 +133,6 @@ a.sidebar-nav-item:focus {
   font-weight: bold;
 }
 
-/* Sticky sidebar
- *
- * Add the `sidebar-sticky` class to the sidebar's container to affix it the
- * contents to the bottom of the sidebar in tablets and up.
- */
-
-@media (min-width: 48em) {
-  .sidebar-sticky {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    left: 1rem;
-  }
-
-  // The #{} stuff is needed because of https://github.com/sass/sass/issues/2378
-  @supports(padding: m#{a}x(0px)) {
-    body:not(.layout-reverse) .sidebar-sticky {
-      // Notch is to left of sidebar; pad appropriately
-      padding-left: m#{a}x(1rem, env(safe-area-inset-left));
-    }
-
-    .layout-reverse .sidebar-sticky {
-      // Support iPhone X rounded corners and notch in landscape
-      // Notch is to right of sidebar; pad appropriately
-      padding-right: m#{a}x(1rem, env(safe-area-inset-right));
-    }
-  }
-}
-
-
 /* Container
  *
  * Align the contents of the site above the proper threshold with some margin-fu
@@ -143,19 +140,13 @@ a.sidebar-nav-item:focus {
  */
 
 .content {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 1rem;
 }
 
 @supports(padding: m#{a}x(0px)) {
-  body:not(.layout-reverse) .content {
+  .content {
     // Notch is to right of content text; pad it appropriately
     padding-right: m#{a}x(1rem, env(safe-area-inset-right));
-  }
-
-  .layout-reverse .content {
-    // Notch is to left of content text; pad it appropriately
-    padding-left: m#{a}x(1rem, env(safe-area-inset-left));
   }
 }
 
@@ -165,6 +156,8 @@ a.sidebar-nav-item:focus {
     max-width: 38rem;
     margin-left: 20rem;
     margin-right: 2rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 }
 
